@@ -10,7 +10,7 @@ const resetButton = document.getElementById('reset');
 const displayPushedPlayerName = document.getElementById('displayPushedPlayerName');
 
 console.log(getSessionId());
-const socket = io.connect('http://127.0.0.1:3000/session/' + getSessionId());
+const socket = io.connect('/session/' + getSessionId());
 
 socket.on('sessionStatus', ({ players }) => {
     const ownData = players.find(p => p.id === socket.id);
