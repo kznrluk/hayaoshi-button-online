@@ -1,0 +1,31 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script type="module" src="js/script.js"></script>
+<style>
+    #push {
+        width: 100px;
+        height: 100px;
+    }
+
+    .login {
+        margin: 10px;
+    }
+
+    #playGame {
+        margin: 10px;
+        display: none;
+    }
+</style>
+
+<div id="main">
+    <div class="login">
+        <label for="playerName">プレイヤー名</label><input id="playerName">
+        <button id="join">JOIN</button>
+    </div>
+    <div id="playGame">
+        <button id="push">押す</button><br>
+        <button id ="reset">リセット</button>
+    </div>
+    <div>
+        <p id="displayPushedPlayerName"></p>
+    </div>
+</div>

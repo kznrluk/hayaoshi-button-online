@@ -1,0 +1,23 @@
+{
+  "name": "hayaoshi-button-online",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kznrluk/hayaoshi-button-online.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kznrluk/hayaoshi-button-online/issues"
+  },
+  "homepage": "https://github.com/kznrluk/hayaoshi-button-online#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
