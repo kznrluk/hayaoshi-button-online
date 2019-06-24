@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/kznrluk/hayaoshi-button-online.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Kazunari Sasa",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kznrluk/hayaoshi-button-online/issues"
   },
