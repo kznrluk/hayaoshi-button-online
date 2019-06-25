@@ -9,6 +9,10 @@ module.exports = class Player {
         this.isPushed = true;
     }
 
+    isButtonPushed() {
+        return this.isPushed;
+    }
+
     reset() {
         this.isPushed = false;
     }

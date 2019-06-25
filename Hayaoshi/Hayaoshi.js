@@ -24,6 +24,10 @@ module.exports = class Hayaoshi {
         return this.players.some(p => p.id === id);
     }
 
+    isButtonPushed() {
+        return this.players.some(p => p.isButtonPushed());
+    }
+
     resetPlayers() {
         this.players.forEach(p => p.reset());
     }

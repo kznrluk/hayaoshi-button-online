@@ -32,7 +32,7 @@ module.exports = class Session {
     }
 
     pushButton(socket) {
-        if (this.hayaoshi.isPlayerIdExist(socket.id)) {
+        if (this.hayaoshi.isPlayerIdExist(socket.id) && !this.hayaoshi.isButtonPushed()) {
             const pushedPlayerDetail = this.hayaoshi.buttonPushed(socket.id);
             this.emitButtonPushed(socket, pushedPlayerDetail);
         }
