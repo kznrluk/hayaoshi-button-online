@@ -9,10 +9,11 @@ const pushButton = document.getElementById('push');
 const resetButton = document.getElementById('reset');
 const displayPushedPlayerName = document.getElementById('displayPushedPlayerName');
 
-FastClick.attach(pushButton);
-
-console.log(getSessionId());
 const socket = io.connect('/session/' + getSessionId());
+
+const enableButton = (bool) => {
+    pushButton.className = (bool) ? pushButton.className.replace('disabled', 'pushable') : pushButton.className.replace('pushable', 'disabled');
+}
 
 socket.on('sessionStatus', ({ players }) => {
     const ownData = players.find(p => p.id === socket.id);
@@ -23,12 +24,12 @@ socket.on('sessionStatus', ({ players }) => {
 });
 
 socket.on('buttonPushed', (player) => {
-    pushButton.disabled = true;
+    enableButton(false);
     displayPushedPlayerName.textContent = `${player.name}さんがボタンを押しました`;
 });
 
 socket.on('reset', () => {
-    pushButton.disabled = false;
+    enableButton(true);
     displayPushedPlayerName.textContent = ``;
 });
 

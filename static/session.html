@@ -1,11 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js'></script>  
 <script type="module" src="js/script.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">  
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <style>
-    #push {
-        width: 100px;
-        height: 100px;
+    #main {
+        text-align: center;
     }
 
     .login {
@@ -16,6 +14,64 @@
         margin: 10px;
         display: none;
     }
+
+    .btnArea {
+        width: auto;
+        height: 200px;
+    }
+
+    .btn-circle-3d {
+        display: inline-block;
+        text-decoration: none;
+        background: #ff8181;
+        color: #FFF;
+        width: 180px;
+        height: 180px;
+        line-height: 190px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 70px;
+        font-weight: bold;
+        overflow: hidden;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 3px #bd6565;
+        transition: .1s;
+    }
+
+    .disabled {
+        background: #c0c0c0;
+        border-bottom: solid 3px #a5a5a5;
+    }
+
+    .pushable:active {
+        -webkit-transform: translateY(6px);
+        transform: translateY(6px);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        border-bottom: none;
+    }
+
+    .btn-square-pop {
+        height: 50px;
+        width: 127px;
+        position: relative;
+        display: inline-block;
+        padding: 0.25em 0.5em;
+        text-decoration: none;
+        color: #FFF;
+        background: #fd9535;/*背景色*/
+        border: none;
+        border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
+        border-radius: 4px;/*角の丸み*/
+        box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+        font-weight: bold;
+        outline: none;
+        appearance: none;
+    }
+
+    .btn-square-pop:active {
+        border-bottom: solid 2px #fd9535;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+    }
 </style>
 
 <div id="main">
@@ -24,8 +80,11 @@
         <button id="join">JOIN</button>
     </div>
     <div id="playGame">
-        <button id="push">押す</button><br>
-        <button id ="reset">リセット</button>
+        <div class="btnArea">
+            <a href="#" id="push" class="btn-circle-3d pushable">押</a>
+        </div>
+        <br>
+        <button id ="reset" class="btn-square-pop">リセット</button>
     </div>
     <div>
         <p id="displayPushedPlayerName"></p>
