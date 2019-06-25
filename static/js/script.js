@@ -9,6 +9,8 @@ const pushButton = document.getElementById('push');
 const resetButton = document.getElementById('reset');
 const displayPushedPlayerName = document.getElementById('displayPushedPlayerName');
 
+FastClick.attach(pushButton);
+
 console.log(getSessionId());
 const socket = io.connect('/session/' + getSessionId());
 
