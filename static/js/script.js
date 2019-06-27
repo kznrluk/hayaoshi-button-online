@@ -24,7 +24,7 @@ socket.on('sessionStatus', ({ players }) => {
 });
 
 socket.on('buttonPushed', (player) => {
-    new Audio('/sound/chime.wav').play();
+    new Audio('/sound/buzzer.wav').play();
     enableButton(false);
     displayPushedPlayerName.textContent = `${player.name}さんがボタンを押しました`;
 });
