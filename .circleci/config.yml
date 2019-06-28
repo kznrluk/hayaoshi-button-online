@@ -1,5 +1,50 @@
-version: 2.1
-jobs:
-  build:
-    docker:
-      - image: circleci/node
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/mern-starter # directory where steps will run
+    docker: # run the steps with Docker
+      - image: circleci/node:latest # ...with this image as the primary container; this is where all `steps` will run
+    steps: # a collection of executable commands
+      - checkout # special step to check out source code to working directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # run tests
+          name: test
+          command: npm test
+      # - run: # run coverage report
+      #    name: code-coverage
+      #    command: './node_modules/.bin/nyc report --reporter=text-lcov'
+      - store_artifacts: # special step to save test results as as artifact
+          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: coverage
+          prefix: coverage
+      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: test-results.xml
+      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+      - run:
+          name: install rsync
+          command: sudo apt install rsync
+      - add_ssh_keys:
+          fingerprints:
+            - "47:bb:eb:9a:c5:4b:f2:87:58:2f:c1:0c:ea:44:26:38"
+      - deploy:
+          name: send files
+          command: |
+            ssh-keyscan -p 2200 ${HOST_NAME} >> ~/.ssh/known_hosts
+            ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 stop ${APP_NAME}"
+            rsync --rsh="ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
+            ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 start ${APP_NAME}"
