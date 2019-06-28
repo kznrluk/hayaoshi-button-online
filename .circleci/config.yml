@@ -44,8 +44,6 @@ jobs: # a collection of steps
       - deploy:
           name: send files
           command: |
-            echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-            chmod 600 ~/.ssh/config
             ssh-keyscan -p 2200 ${HOST_NAME} >> ~/.ssh/known_hosts
             ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} stop"
             rsync --rsh="ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
