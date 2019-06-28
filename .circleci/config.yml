@@ -38,6 +38,9 @@ jobs: # a collection of steps
       - run:
           name: install rsync
           command: sudo apt install rsync
+      - add_ssh_keys:
+          fingerprints:
+            - "5a:16:f4:93:82:ef:35:90:7f:79:85:66:f8:b9:f1:48"
       - deploy:
           name: send files
           command: |
