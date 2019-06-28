@@ -35,10 +35,13 @@ jobs: # a collection of steps
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results.xml
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+      - run:
+          name: install rsync
+          command: sudo apt install rsync
       - deploy:
           name: send files
           command: |
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
             ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} stop"
-            rsync "ssh -p 2200" -av -e --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
+            rsync -e "ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
             ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} start"
