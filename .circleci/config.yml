@@ -46,7 +46,7 @@ jobs: # a collection of steps
           command: |
             echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
             chmod 600 ~/.ssh/config
-            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+            ssh-keyscan -p 2200 ${HOST_NAME} >> ~/.ssh/known_hosts
             ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} stop"
-            rsync -e "ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
+            rsync --rsh="ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
             ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} start"
