@@ -41,4 +41,4 @@ jobs: # a collection of steps
       - deploy:
           name: send files
           command: |
-            rsync "ssh -p 2200" -av -e --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
+            rsync -e "ssh -p 2200" -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
