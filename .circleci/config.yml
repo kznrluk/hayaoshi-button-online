@@ -38,4 +38,7 @@ jobs: # a collection of steps
       - deploy:
           name: send files
           command: |
+            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+            ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} stop"
             rsync "ssh -p 2200" -av -e --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/hayaoshi-button-online/
+            ssh ${USER_NAME}@${HOST_NAME} -p 2200 "pm2 ${APP_NAME} start"
