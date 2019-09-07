@@ -39,7 +39,7 @@ body {
 
 @media screen and (max-width: 600px) {
     .content__body {
-        padding: 0 0 30px;
+        padding: 0 10px 30px;
     }
 }
 
@@ -56,6 +56,7 @@ body {
 .title__text {
     font-weight: normal;
     font-size: 2rem;
+    white-space: nowrap;
     color: var(--main-text-color-white);
 }
 
@@ -67,7 +68,7 @@ body {
     border: solid 1px var(--main-line-color);
     border-radius: 50px;
     height: 50px;
-    width: 300px;
+    width: 250px;
 }
 
 .link__text {
