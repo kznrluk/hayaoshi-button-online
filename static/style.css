@@ -34,8 +34,13 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 80vw;
-    padding-bottom: 30px;
+    padding: 0 70px 30px;
+}
+
+@media screen and (max-width: 600px) {
+    .content__body {
+        padding: 0 0 30px;
+    }
 }
 
 .title {
