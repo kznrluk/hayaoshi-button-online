@@ -34,4 +34,5 @@ jobs:
       run: |
         echo "$SECRET_KEY" > secret_key
         chmod 600 secret_key
-        ssh -vv -oStrictHostKeyChecking=no -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
+        ssh -oStrictHostKeyChecking=no ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key "echo Hello"
+        ssh -oStrictHostKeyChecking=no -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
