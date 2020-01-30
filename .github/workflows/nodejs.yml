@@ -25,12 +25,12 @@ jobs:
         CI: true
     - name: deploy
       env:
-        SECRET_KEY: {{ secrets.SECRET_KEY }}
-        SSH_PROXY_USER: {{ secrets.SSH_PROXY_USER }}
-        SSH_PROXY_ADDR: {{ secrets.SSH_PROXY }}
-        SSH_AP_USER: {{ secrets.SSH_AP_USER }}
-        SSH_AP_ADDR: {{ secrets.SSH_AP_ADDR }}
-        SSH_COMMAND: {{ secrets.SSH_COMMAND }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SSH_PROXY_USER: ${{ secrets.SSH_PROXY_USER }}
+        SSH_PROXY_ADDR: ${{ secrets.SSH_PROXY }}
+        SSH_AP_USER: ${{ secrets.SSH_AP_USER }}
+        SSH_AP_ADDR: ${{ secrets.SSH_AP_ADDR }}
+        SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
       run: |
         ssh-keyscan $SSH_PROXY_ADDR >> ~/.ssh/known_hosts
         echo $SECRET_KEY > secret_key
