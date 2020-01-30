@@ -36,4 +36,4 @@ jobs:
         ssh-keyscan $SSH_PROXY_ADDR > ~/.ssh/known_hosts
         echo "$SECRET_KEY" > secret_key
         chmod 400 secret_key
-        ssh -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
+        ssh -vv -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
