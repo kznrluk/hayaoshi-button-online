@@ -27,7 +27,7 @@ jobs:
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SSH_PROXY_USER: ${{ secrets.SSH_PROXY_USER }}
-        SSH_PROXY_ADDR: ${{ secrets.SSH_PROXY }}
+        SSH_PROXY_ADDR: ${{ secrets.SSH_PROXY_ADDR }}
         SSH_AP_USER: ${{ secrets.SSH_AP_USER }}
         SSH_AP_ADDR: ${{ secrets.SSH_AP_ADDR }}
         SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
