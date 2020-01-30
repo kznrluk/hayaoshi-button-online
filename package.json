@@ -19,9 +19,9 @@
   "homepage": "https://github.com/kznrluk/hayaoshi-button-online#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "morse-unit-test": "^0.1.2"
   },
   "devDependencies": {
-    "morse-unit-test": "^0.1.2"
   }
 }
