@@ -23,3 +23,15 @@ jobs:
         npm test
       env:
         CI: true
+    - name: deploy
+      env:
+        SECRET_KEY: {{ secret.SECRET_KEY }}
+        SSH_PROXY_USER: {{ secret.SSH_PROXY_USER }}
+        SSH_PROXY_ADDR: {{ secret.SSH_PROXY }}
+        SSH_AP_USER: {{ secret.SSH_AP_USER }}
+        SSH_AP_ADDR: {{ secret.SSH_AP_ADDR }}
+        SSH_COMMAND: {{ secret.SSH_COMMAND }}
+      run: |
+        ssh-keyscan $SSH_PROXY_ADDR >> ~/.ssh/known_hosts
+        echo $SECRET_KEY > secret_key
+        ssh -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i ./secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i ./secret_key "$SSH_COMMAND"
