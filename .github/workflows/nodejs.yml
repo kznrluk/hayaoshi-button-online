@@ -33,5 +33,5 @@ jobs:
         SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
       run: |
         echo "$SECRET_KEY" > secret_key
-        chmod 400 secret_key
-        ssh -vv -oProxyCommand='ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
+        chmod 600 secret_key
+        ssh -vv -oProxyCommand='/usr/bin/ssh -W %h:%p ${SSH_PROXY_USER}@${SSH_PROXY_ADDR} -i secret_key' ${SSH_AP_USER}@${SSH_AP_ADDR} -i secret_key "$SSH_COMMAND"
