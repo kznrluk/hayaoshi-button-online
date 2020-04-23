@@ -1,22 +1,56 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script type="module" src="js/script.js"></script>
-<link rel="stylesheet" href="style/session.css">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/289fbc457a.js" crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="style/session.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>早押しボタン</title>
+</head>
+<body>
 <div id="main">
-    <div class="login">
-        <label for="playerName">プレイヤー名</label><input id="playerName">
-        <button id="join">JOIN</button>
+    <div id="loginScreenWrap" class="loginScreen__wrap">
+        <div class="loginScreen">
+            <div class="loginScreen__title">
+                <label for="playerName">ニックネームを入力してください</label>
+            </div>
+            <div class="loginScreen__input">
+                <input id="playerName">
+            </div>
+            <div class="loginScreen__JoinButton">
+                <button id="join">参加</button>
+            </div>
+        </div>
     </div>
     <div id="playGame">
         <div class="btnArea">
             <a href="#" id="push" class="btn-circle-3d pushable">押</a>
         </div>
         <br>
-        <button id ="reset" class="btn-square-pop">リセット</button>
-    </div>
-    <div>
-        <p id="displayPushedPlayerName"></p>
+        <button id="reset" class="btn-square-pop">リセット</button>
+        <div class="displayPushedPlayerName">
+            <p id="displayPushedPlayerName"></p>
+        </div>
+        <div class="controllers">
+            <div class="controllers__item">
+                <button id="share_button" class="controllers__button">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <div class="controllers__item">
+                <button id="volume_button" class="controllers__button">
+                    <i id="volume_button_icon" class="fas fa-volume-mute"></i>
+                </button>
+            </div>
+            <div class="controllers__item">
+                <button id="image_button" class="controllers__button">
+                    <i class="far fa-images"></i>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
+</body>
+</html>

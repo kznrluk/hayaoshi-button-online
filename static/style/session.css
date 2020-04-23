@@ -1,5 +1,75 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url("https://source.unsplash.com/random");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 #main {
     text-align: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loginScreen__wrap {
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.loginScreen__title {
+    color: white;
+    font-size: 1.2rem;
+    padding-bottom: 15px;
+}
+
+.loginScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 550px;
+}
+
+.loginScreen__input {
+    width: 300px;
+    height: 50px;
+    border: 0;
+    padding-bottom: 25px;
+}
+
+.loginScreen__input input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+.loginScreen__JoinButton {
+    width: 150px;
+    height: 50px;
+    font-size: 25px;
+}
+
+.loginScreen__JoinButton button {
+    width: 100%;
+    height: 100%;
+    font-size: 25px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    line-height: 50px;
+    background-color: transparent;
 }
 
 .login {
@@ -7,8 +77,13 @@
 }
 
 #playGame {
-    margin: 10px;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .btnArea {
@@ -29,7 +104,7 @@
     font-size: 70px;
     font-weight: bold;
     overflow: hidden;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.29);
     border-bottom: solid 3px #bd6565;
     transition: .1s;
 }
@@ -40,7 +115,6 @@
 }
 
 .pushable:active {
-    -webkit-transform: translateY(6px);
     transform: translateY(6px);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
     border-bottom: none;
@@ -49,15 +123,13 @@
 .btn-square-pop {
     height: 50px;
     width: 127px;
-    position: relative;
-    display: inline-block;
     padding: 0.25em 0.5em;
     text-decoration: none;
     color: #FFF;
-    background: #fd9535;/*背景色*/
+    background: #fd9535;
     border: none;
-    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
-    border-radius: 4px;/*角の丸み*/
+    border-bottom: solid 2px #d27d00;
+    border-radius: 4px;
     box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
     font-weight: bold;
     outline: none;
@@ -67,4 +139,52 @@
 .btn-square-pop:active {
     border-bottom: solid 2px #fd9535;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+.controllers {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.controllers__item {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.controllers__button {
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    border: 0 none;
+    border-radius: 4px;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: #FFF;
+    background: #9acc2d;
+    border-bottom: solid 2px #769923;
+    outline: none;
+    appearance: none;
+}
+
+.controllers__button:active {
+    border-bottom: solid 2px #9acc2d;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+.fas, .far {
+    width: 28px;
+    height: 28px;
+    color: #FAFAFA;
+    font-size: 23px;
+}
+
+.displayPushedPlayerName {
+    padding: 10px;
+    text-shadow: 0 0 8px #000000;
+    height: 30px;
+    color: #FAFAFA;
 }
