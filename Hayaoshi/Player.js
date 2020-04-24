@@ -2,26 +2,22 @@ module.exports = class Player {
     constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.isPushed = false;
+        this.pushedRank = null;
     }
 
-    buttonPushed() {
-        this.isPushed = true;
-    }
-
-    isButtonPushed() {
-        return this.isPushed;
+    buttonPushed(rank) {
+        this.pushedRank = rank;
     }
 
     reset() {
-        this.isPushed = false;
+        this.pushedRank = null;
     }
 
     createPlayerDetails() {
         return {
             id: this.id,
             name: this.name,
-            isPushed: this.isPushed,
+            pushedRank: this.pushedRank,
         }
     }
 }

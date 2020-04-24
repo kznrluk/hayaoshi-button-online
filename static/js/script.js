@@ -1,4 +1,5 @@
 let isMute = true;
+let isButtonEnabled = true;
 
 const getSessionId = () => {
     return new URLSearchParams(location.href.split('?')[1]).get('sessionId');
@@ -8,11 +9,12 @@ const playerNameInput = document.getElementById('playerName');
 const joinButton = document.getElementById('join');
 const pushButton = document.getElementById('push');
 const resetButton = document.getElementById('reset');
-const displayPushedPlayerName = document.getElementById('displayPushedPlayerName');
+const displayPushedPlayers = document.getElementById('displayPushedPlayers');
 
 const socket = io.connect('/session/' + getSessionId());
 
 const enableButton = (bool) => {
+    isButtonEnabled = bool;
     pushButton.className = (bool)
         ? pushButton.className.replace('disabled', 'pushable')
         : pushButton.className.replace('pushable', 'disabled');
@@ -26,17 +28,30 @@ socket.on('sessionStatus', ({ players }) => {
     }
 });
 
-socket.on('buttonPushed', (player) => {
+socket.on('buttonPushed', (players) => {
     if (!isMute) {
         new Audio('/sound/buzzer.wav').play();
     }
-    enableButton(false);
-    displayPushedPlayerName.textContent = `${player.name}さんがボタンを押しました`;
+
+    const texts = players
+        .filter(player => player.pushedRank !== null)
+        .map(player => {
+            if (player.id === socket.id) {
+                enableButton(false);
+            }
+            const elm = document.createElement('p');
+            elm.className = 'displayPushedPlayerName';
+            elm.textContent = `${player.name}さんが${player.pushedRank+1}番目にボタンを押しました`;
+            return elm;
+        });
+
+    displayPushedPlayers.innerHTML = '';
+    displayPushedPlayers.append(...texts);
 });
 
 socket.on('reset', () => {
     enableButton(true);
-    displayPushedPlayerName.textContent = ``;
+    displayPushedPlayers.innerHTML = '';
 });
 
 joinButton.addEventListener('click', (event) => {
@@ -47,7 +62,9 @@ joinButton.addEventListener('click', (event) => {
 });
 
 pushButton.addEventListener('click', (event) => {
-    socket.emit('pushButton');
+    if (isButtonEnabled) {
+        socket.emit('pushButton');
+    }
 })
 
 resetButton.addEventListener('click', (event) => {

@@ -142,6 +142,8 @@ body {
 }
 
 .controllers {
+    padding-top: 25px;
+    padding-bottom: 25px;
     width: 200px;
     height: 50px;
     display: flex;
@@ -182,9 +184,12 @@ body {
     font-size: 23px;
 }
 
+.displayPushedPlayers {
+    height: 40px;
+}
+
 .displayPushedPlayerName {
-    padding: 10px;
+    padding: 0;
     text-shadow: 0 0 8px #000000;
-    height: 30px;
     color: #FAFAFA;
 }

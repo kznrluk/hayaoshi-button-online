@@ -16,16 +16,21 @@ module.exports = class Hayaoshi {
             throw new Error('存在しないプレイヤーです。');
         }
 
-        pushedPlayer.buttonPushed();
-        return pushedPlayer.createPlayerDetails();
+        const pushedPlayers = this.players.filter(p => p.pushedRank !== null);
+        pushedPlayer.buttonPushed(pushedPlayers.length);
+
+        return this.players
+            .filter(p => p.pushedRank !== null)
+            .sort((a, b) => {
+                if (a.pushedRank === b.pushedRank) return 0;
+                if (a.pushedRank === null) return -1;
+                if (b.pushedRank === null) return 1;
+                return a.pushedRank - b.pushedRank;
+            }).map(p => p.createPlayerDetails());
     }
 
     isPlayerIdExist(id) {
         return this.players.some(p => p.id === id);
-    }
-
-    isButtonPushed() {
-        return this.players.some(p => p.isButtonPushed());
     }
 
     resetPlayers() {
