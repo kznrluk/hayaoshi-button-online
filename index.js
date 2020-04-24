@@ -20,5 +20,9 @@ app.get('/createNewRoom', (req, res) => {
     res.redirect(`/session.html?sessionId=${roomId}`);
 });
 
+app.get('/roomCount', (req, res) => {
+    res.send(String(rooms.rooms.length));
+});
+
 http.listen(3000);
 console.log('Server listening....');
