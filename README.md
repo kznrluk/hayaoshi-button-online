@@ -5,7 +5,7 @@ Webブラウザを使った早押しボタンアプリです。URL共有する�
 
 * Express + WebSocket(Socket.io)
 * Dockerでのデプロイ対応
-* CircleCIでのContinuous Delivery
+* GitHub ActionsでのContinuous Delivery
 
 Background images provided by Unsplash source.
 

@@ -5,11 +5,48 @@ const getSessionId = () => {
     return new URLSearchParams(location.href.split('?')[1]).get('sessionId');
 };
 
+const execCopy = (string) => {
+    // 空div 生成
+    const tmp = document.createElement("div");
+    // 選択用のタグ生成
+    const pre = document.createElement('pre');
+
+    // 親要素のCSSで user-select: none だとコピーできないので書き換える
+    pre.style.webkitUserSelect = 'auto';
+    pre.style.userSelect = 'auto';
+    tmp.appendChild(pre).textContent = string;
+
+    // 要素を画面外へ
+    const s = tmp.style;
+    s.position = 'fixed';
+    s.right = '200%';
+
+    // body に追加
+    document.body.appendChild(tmp);
+    // 要素を選択
+    document.getSelection().selectAllChildren(tmp);
+
+    // クリップボードにコピー
+    document.execCommand("copy");
+
+    // 要素削除
+    document.body.removeChild(tmp);
+}
+
 const playerNameInput = document.getElementById('playerName');
 const joinButton = document.getElementById('join');
 const pushButton = document.getElementById('push');
 const resetButton = document.getElementById('reset');
 const displayPushedPlayers = document.getElementById('displayPushedPlayers');
+const shareButton = document.getElementById('shareButton');
+
+const initShareButtonText = () => {
+    if (navigator.share) {
+        shareButton.children[0].textContent = 'URLを共有する';
+    } else {
+        shareButton.children[0].textContent = 'URLをコピーする';
+    }
+}
 
 const socket = io.connect('/session/' + getSessionId());
 
@@ -71,7 +108,27 @@ resetButton.addEventListener('click', (event) => {
     socket.emit('reset');
 })
 
-document.getElementById('share_button').addEventListener('click', () => {
+
+const setShareModalPassword = (number) => {
+    const passDiv = document.getElementById('showPasswords');
+    passDiv.innerHTML = number.split('').map(e => `<p>${e}</p>`).join('');
+}
+
+const modalDiv = document.getElementById('shareModal');
+document.getElementById('openShareModal').addEventListener('click', () => {
+    modalDiv.style.display = '';
+    initShareButtonText();
+    setShareModalPassword('----');
+    fetch(`/createPassword?sessionId=${getSessionId()}`)
+        .then(r => r.json())
+        .then(({ password }) => setShareModalPassword(password));
+});
+
+document.getElementById('closeShareModal').addEventListener('click', () => {
+    modalDiv.style.display = 'none';
+});
+
+shareButton.addEventListener('click', () => {
     if (navigator.share) {
         navigator.share({
             title: '早押しボタンオンライン',
@@ -79,7 +136,8 @@ document.getElementById('share_button').addEventListener('click', () => {
             url: location.href,
         })
     } else {
-        alert('友達にリンクを送って、部屋に招待しよう！');
+        execCopy(location.href);
+        shareButton.children[0].textContent = 'コピーしました！'
     }
 });
 

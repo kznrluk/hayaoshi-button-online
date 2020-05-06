@@ -32,6 +32,39 @@
             </div>
         </div>
     </div>
+    <div id="shareModal" class="shareModal">
+        <div class="shareModal__content">
+            <p class="shareModal__description">
+                URL・パスワードを共有して友達と一緒に早押しボタンで遊ぼう！
+            </p>
+            <div class="shareModal__type">
+                <div id="shareButton" class="shareModal__shareButton">
+                    <p>URLを共有する</p>
+                </div>
+            </div>
+            <p class="shareModal__separate">もしくは</p>
+            <div class="shareModal__type">
+                <p class="shareModal__typeHeader">
+                    パスワードを教える
+                </p>
+                <div id="showPasswords" class="shareModal__showPassword">
+                    <p>-</p>
+                    <p>-</p>
+                    <p>-</p>
+                    <p>-</p>
+                </div>
+                <p class="shareModal__passDescription">
+                    トップページから四桁の番号で入室できます
+                </p>
+                <p class="shareModal__passDescription">
+                    パスワードの有効期限はこの画面を開いてから15分間です
+                </p>
+            </div>
+            <div id="closeShareModal" class="shareModal__close">
+                とじる
+            </div>
+        </div>
+    </div>
     <div id="playGame">
         <div class="btnArea">
             <a href="#" id="push" class="btn-circle-3d pushable">押</a>
@@ -40,7 +73,7 @@
         <button id="reset" class="btn-square-pop">リセット</button>
         <div class="controllers">
             <div class="controllers__item">
-                <button id="share_button" class="controllers__button">
+                <button id="openShareModal" class="controllers__button">
                     <i class="fas fa-share-alt"></i>
                 </button>
             </div>

@@ -4,6 +4,69 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=360,initial-scale=1">
     <link rel="stylesheet" href="style/index.css">
+    <script type="module">
+    const inputs = document.getElementById('passInput');
+
+    const joinGameWithPassword = () => {
+        const [p1, p2, p3, p4] = inputs.children;
+        const password = p1.value + p2.value + p3.value + p4.value;
+        fetch(`/getSessionIdFromPassword?pass=${password}`)
+            .then(r => r.json())
+            .then(({ sessionId }) => {
+                if (!sessionId) {
+                    alert('一致する部屋が見つかりませんでした。パスワードはあっていますか？');
+                } else {
+                    location.href = `/session.html?sessionId=${sessionId}`;
+                }
+            });
+    }
+
+    document.getElementById('joinWithPassword').addEventListener('click', (ev) => {
+        joinGameWithPassword();
+    });
+
+    inputs.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' && ev.target.id === 'pass4') {
+            joinGameWithPassword();
+        }
+
+        if (ev.key === 'Backspace') {
+            if (ev.target.value) {
+                ev.target.value = '';
+            } else {
+                if (ev.target.previousElementSibling) {
+                    ev.target.previousElementSibling.value = '';
+                    ev.target.previousElementSibling.focus();
+                }
+            }
+        }
+
+        if (ev.key === 'ArrowLeft') {
+            if (ev.target.previousElementSibling) {
+                ev.target.previousElementSibling.focus();
+            }
+        }
+
+        if (ev.key === 'ArrowRight') {
+            if (ev.target.nextElementSibling) {
+                ev.target.nextElementSibling.focus();
+            }
+        }
+
+        if (!/^[0-9]+(\.[0-9]+)?$/.test(ev.key)) {
+            // 数字じゃなければ通さない
+            console.log(ev.key)
+            return ev.preventDefault();
+        }
+
+        ev.target.value = ev.key;
+        if (ev.target.nextElementSibling) {
+            ev.target.nextElementSibling.focus();
+        }
+
+        ev.preventDefault();
+    });
+    </script>
 </head>
 <body>
 <main class="mainDiv">
@@ -17,6 +80,19 @@
             <div class="link">
                 <div class="link__text">新しく部屋を作る</div>
                 <a href="./createNewRoom"></a>
+            </div>
+            <p class="content__separate">もしくは</p>
+            <div class="pass">
+                <div class="pass__text">パスワードで入室する</div>
+                <div class="pass__inputs" id="passInput">
+                    <input id="pass1" type="text" inputmode="numeric" pattern="\d*">
+                    <input id="pass2" type="text" inputmode="numeric" pattern="\d*">
+                    <input id="pass3" type="text" inputmode="numeric" pattern="\d*">
+                    <input id="pass4" type="text" inputmode="numeric" pattern="\d*">
+                </div>
+                <div class="link" id="joinWithPassword">
+                    <div class="link__text">入室</div>
+                </div>
             </div>
             <div class="howto">
                 <h4 class="howto__head">遊び方</h4>

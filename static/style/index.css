@@ -61,6 +61,7 @@ body {
 }
 
 .link {
+    cursor: pointer;
     position: relative;
     display: inline-flex;
     justify-content: center;
@@ -82,6 +83,61 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.content__separate {
+    text-align: center;
+    position: relative;
+    width: 300px;
+    margin-bottom: 15px;
+}
+
+.content__separate:before, .content__separate:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 65px;
+    height: 1px;
+    background-color: black;
+}
+
+.content__separate:before {
+    left: 0;
+}
+
+.content__separate:after {
+    right: 0;
+}
+
+.pass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pass__text {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.pass__inputs {
+    display: flex;
+    width: 220px;
+    justify-content: space-around;
+    padding-bottom: 20px;
+}
+
+.pass__inputs input {
+    font-family: monospace;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+    width: 30px;
+    height: 43px;
+    border: 1px solid #666666;
+    border-radius: 3px;
 }
 
 .howto {

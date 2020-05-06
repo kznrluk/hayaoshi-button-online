@@ -1,3 +1,7 @@
+:root {
+    --main-line-color: #EA6264;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -74,6 +78,112 @@ body {
 
 .login {
     margin: 10px;
+}
+
+.shareModal {
+    z-index: 1;
+    letter-spacing: 0.08rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,0.75);
+}
+
+.shareModal__content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: #FAFAFA;
+    padding: 25px;
+}
+
+.shareModal__separate {
+    text-align: center;
+    position: relative;
+    width: 200px;
+    margin-bottom: 15px;
+}
+
+.shareModal__separate:before, .shareModal__separate:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 1px;
+    background-color: black;
+}
+
+.shareModal__separate:before {
+    left: 0;
+}
+
+.shareModal__separate:after {
+    right: 0;
+}
+
+.shareModal__description {
+    text-align: left;
+    padding-bottom: 25px;
+}
+
+.shareModal__type {
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shareModal__shareButton {
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px var(--main-line-color);
+    color: var(--main-line-color);
+    border-radius: 30px;
+    height: 50px;
+    width: 200px;
+}
+
+.shareModal__showPassword {
+    letter-spacing: normal;
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    align-content: space-around;
+    font-family: monospace;
+    padding-bottom: 10px;
+    width: 150px;
+}
+
+.shareModal__showPassword p {
+    text-align: center;
+}
+
+.shareModal__passDescription {
+    color: #666666;
+    font-size: 0.8rem;
+}
+
+.shareModal__close {
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px #666666;
+    color: #666666;
+    border-radius: 30px;
+    height: 30px;
+    width: 100px;
 }
 
 #playGame {
