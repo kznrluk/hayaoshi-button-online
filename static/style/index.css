@@ -39,6 +39,10 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+    .mainDiv {
+        padding-top: 0;
+    }
+
     .content__body {
         padding: 0 10px 30px;
     }
