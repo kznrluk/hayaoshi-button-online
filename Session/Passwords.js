@@ -24,7 +24,16 @@ module.exports = class Passwords {
         });
     }
 
+    removePassword(targetSessionId) {
+        this.passMap.forEach(([createdTimeMs, sessionId], key) => {
+            if (targetSessionId === sessionId) {
+                this.passMap.delete(key);
+            }
+        });
+    }
+
     createPassword(sessionId) {
+        this.removePassword(sessionId);
         const password = this.createUniquePassword();
         this.passMap.set(password, [new Date().getTime(), sessionId]);
         return password;
