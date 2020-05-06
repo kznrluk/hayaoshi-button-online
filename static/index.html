@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=360,initial-scale=1">
     <link rel="stylesheet" href="style/index.css">
+    <meta property="og:url" content="https://btn.anyfrog.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="早押しボタンオンライン">
+    <meta property="og:description" content="ブラウザだけで遊べる早押しボタンウェブアプリ">
+    <meta property="og:site_name" content="btn.anyfrog.net">
+    <meta property="og:image" content="https://btn.anyfrog.net/ogpimage.png">
+    <meta property="og:image:width" content="370">
+    <meta property="og:image:height" content="370">
     <script type="module">
     const inputs = document.getElementById('passInput');
 
@@ -21,7 +29,7 @@
             });
     }
 
-    document.getElementById('joinWithPassword').addEventListener('click', (ev) => {
+    document.getElementById('joinWithPassword').addEventListener('click', () => {
         joinGameWithPassword();
     });
 
@@ -91,15 +99,16 @@
                     <input id="pass4" type="text" inputmode="numeric" pattern="\d*">
                 </div>
                 <div class="link" id="joinWithPassword">
-                    <div class="link__text">入室</div>
+                    <div class="link__text">入室する</div>
                 </div>
             </div>
             <div class="howto">
                 <h4 class="howto__head">遊び方</h4>
                 <div class="howto__text">
-                    <p>上記リンクをクリックして、移動後のページのURLをLINEやTwitterで共有しましょう！</p>
-                    <p>URLにアクセスすると、自動的に同じ部屋に参加することができます。</p>
-                    <p>プレイヤー名を入力して、Let's早押しクイズ！</p>
+                    <p>早押しボタンオンラインはブラウザだけですぐに遊べるWebアプリです。もちろんスマートフォンにも対応！</p>
+                    <p>上のボタンをクリックして、好きなニックネームで部屋に参加しよう！</p>
+                    <p>URLやパスワードを共有して、Let's早押しクイズ！</p>
+                    <p>ご意見・ご感想はTwitterまで <a href="https://twitter.com/kznrluk">@kznrluk</a></p>
                 </div>
             </div>
             <div class="logos">

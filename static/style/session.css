@@ -28,7 +28,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .loginScreen__title {
@@ -81,9 +81,9 @@ body {
 }
 
 .shareModal {
+    backdrop-filter: blur(10px);
     z-index: 1;
     letter-spacing: 0.08rem;
-    display: flex;
     justify-content: space-around;
     align-items: center;
     position: fixed;
@@ -91,7 +91,15 @@ body {
     left:0;
     width:100vw;
     height:100vh;
-    background-color:rgba(0,0,0,0.75);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.shareModal--on {
+    display: flex;
+}
+
+.shareModal--off {
+    display: none;
 }
 
 .shareModal__content {

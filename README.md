@@ -1,7 +1,7 @@
 # Hayaoshi-Button-Online
 Webブラウザを使った早押しボタンアプリです。URL共有するだけで複数人と早押しクイズをすることができます。
 
-[Try it out!](https://btn.anyfrog.net)
+[試してみる](https://btn.anyfrog.net)
 
 * Express + WebSocket(Socket.io)
 * Dockerでのデプロイ対応

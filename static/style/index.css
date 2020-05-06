@@ -10,6 +10,7 @@ body {
     margin: 0;
     background: linear-gradient(-135deg, #F2B9A1, #EA6264);
     font-family: arial, sans-serif;
+    letter-spacing: normal;
 }
 
 .mainDiv {

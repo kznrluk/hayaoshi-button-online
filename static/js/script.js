@@ -91,20 +91,20 @@ socket.on('reset', () => {
     displayPushedPlayers.innerHTML = '';
 });
 
-joinButton.addEventListener('click', (event) => {
+joinButton.addEventListener('click', () => {
     const playerName = playerNameInput.value;
     const loginScreen = document.getElementById('loginScreenWrap');
     loginScreen.style.display = 'none';
     socket.emit('joinSession', playerName);
 });
 
-pushButton.addEventListener('click', (event) => {
+pushButton.addEventListener('click', () => {
     if (isButtonEnabled) {
         socket.emit('pushButton');
     }
 })
 
-resetButton.addEventListener('click', (event) => {
+resetButton.addEventListener('click', () => {
     socket.emit('reset');
 })
 
@@ -116,7 +116,7 @@ const setShareModalPassword = (number) => {
 
 const modalDiv = document.getElementById('shareModal');
 document.getElementById('openShareModal').addEventListener('click', () => {
-    modalDiv.style.display = '';
+    modalDiv.className = 'shareModal shareModal--on';
     initShareButtonText();
     setShareModalPassword('----');
     fetch(`/createPassword?sessionId=${getSessionId()}`)
@@ -125,7 +125,7 @@ document.getElementById('openShareModal').addEventListener('click', () => {
 });
 
 document.getElementById('closeShareModal').addEventListener('click', () => {
-    modalDiv.style.display = 'none';
+    modalDiv.className = 'shareModal shareModal--off';
 });
 
 shareButton.addEventListener('click', () => {
@@ -141,7 +141,7 @@ shareButton.addEventListener('click', () => {
     }
 });
 
-document.getElementById('volume_button').addEventListener('click', (ev) => {
+document.getElementById('volume_button').addEventListener('click', () => {
     const muteIconClass = 'fas fa-volume-mute';
     const unmuteIconClass = 'fas fa-volume-up';
     isMute = !isMute;
