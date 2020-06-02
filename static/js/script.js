@@ -1,9 +1,9 @@
-let isMute = true;
-let isButtonEnabled = false;
+const store = {
+    isMute: true,
+    isButtonEnabled: false,
+}
 
-const getSessionId = () => {
-    return new URLSearchParams(location.href.split('?')[1]).get('sessionId');
-};
+const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');;
 
 const execCopy = (string) => {
     // 空div 生成
@@ -33,6 +33,7 @@ const execCopy = (string) => {
     document.body.removeChild(tmp);
 }
 
+const socket = io.connect('/session/' + getSessionId());
 const playerNameInput = document.getElementById('playerName');
 const joinButton = document.getElementById('join');
 const pushButton = document.getElementById('push');
@@ -48,10 +49,8 @@ const initShareButtonText = () => {
     }
 }
 
-const socket = io.connect('/session/' + getSessionId());
-
 const enableButton = (bool) => {
-    isButtonEnabled = bool;
+    store.isButtonEnabled = bool;
     pushButton.className = (bool)
         ? pushButton.className.replace('disabled', 'pushable')
         : pushButton.className.replace('pushable', 'disabled');
@@ -66,7 +65,7 @@ socket.on('sessionStatus', ({ players }) => {
 });
 
 socket.on('buttonPushed', (players) => {
-    if (!isMute) {
+    if (!store.isMute) {
         new Audio('/sound/buzzer.wav').play();
     }
 
@@ -91,6 +90,10 @@ socket.on('reset', () => {
     displayPushedPlayers.innerHTML = '';
 });
 
+socket.on('error', () => (
+    alert('接続に失敗しました。ページを再読み込みしてもうまくいかない場合、部屋を作り直してください。')
+));
+
 joinButton.addEventListener('click', () => {
     const playerName = playerNameInput.value;
     const loginScreen = document.getElementById('loginScreenWrap');
@@ -100,7 +103,7 @@ joinButton.addEventListener('click', () => {
 });
 
 const tryPushButton = () => {
-    if (isButtonEnabled) {
+    if (store.isButtonEnabled) {
         socket.emit('pushButton');
     }
 }
@@ -110,7 +113,6 @@ const resetButtonPushed = () => {
 }
 
 pushButton.addEventListener('click', tryPushButton)
-
 resetButton.addEventListener('click', resetButtonPushed)
 
 
@@ -149,8 +151,8 @@ shareButton.addEventListener('click', () => {
 document.getElementById('volume_button').addEventListener('click', () => {
     const muteIconClass = 'fas fa-volume-mute';
     const unmuteIconClass = 'fas fa-volume-up';
-    isMute = !isMute;
-    document.getElementById('volume_button_icon').className = isMute ? muteIconClass : unmuteIconClass;
+    store.isMute = !store.isMute;
+    document.getElementById('volume_button_icon').className = store.isMute ? muteIconClass : unmuteIconClass;
 });
 
 document.getElementById('image_button').addEventListener('click', () => {
