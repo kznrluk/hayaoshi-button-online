@@ -1,5 +1,5 @@
 let isMute = true;
-let isButtonEnabled = true;
+let isButtonEnabled = false;
 
 const getSessionId = () => {
     return new URLSearchParams(location.href.split('?')[1]).get('sessionId');
@@ -96,17 +96,22 @@ joinButton.addEventListener('click', () => {
     const loginScreen = document.getElementById('loginScreenWrap');
     loginScreen.style.display = 'none';
     socket.emit('joinSession', playerName);
+    enableButton(true);
 });
 
-pushButton.addEventListener('click', () => {
+const tryPushButton = () => {
     if (isButtonEnabled) {
         socket.emit('pushButton');
     }
-})
+}
 
-resetButton.addEventListener('click', () => {
+const resetButtonPushed = () => {
     socket.emit('reset');
-})
+}
+
+pushButton.addEventListener('click', tryPushButton)
+
+resetButton.addEventListener('click', resetButtonPushed)
 
 
 const setShareModalPassword = (number) => {
@@ -150,4 +155,9 @@ document.getElementById('volume_button').addEventListener('click', () => {
 
 document.getElementById('image_button').addEventListener('click', () => {
     document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+});
+
+document.addEventListener('keydown', ({ code }) => {
+    if (code === 'Space' || code === 'Enter') tryPushButton();
+    if (code === 'Backspace' || code === 'Delete') resetButtonPushed();
 });
