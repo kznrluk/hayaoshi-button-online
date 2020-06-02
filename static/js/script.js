@@ -90,9 +90,10 @@ socket.on('reset', () => {
     displayPushedPlayers.innerHTML = '';
 });
 
-socket.on('error', () => (
-    alert('接続に失敗しました。ページを再読み込みしてもうまくいかない場合、部屋を作り直してください。')
-));
+const alertConnectionError = () => alert('接続に失敗しました。ページを再読み込みしてもうまくいかない場合、部屋を作り直してください。')
+
+socket.on('error', alertConnectionError);
+socket.on('connect_error', alertConnectionError);
 
 joinButton.addEventListener('click', () => {
     const playerName = playerNameInput.value;
