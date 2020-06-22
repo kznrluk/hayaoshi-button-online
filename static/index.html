@@ -63,7 +63,6 @@
 
         if (!/^[0-9]+(\.[0-9]+)?$/.test(ev.key)) {
             // 数字じゃなければ通さない
-            console.log(ev.key)
             return ev.preventDefault();
         }
 
@@ -93,10 +92,10 @@
             <div class="pass">
                 <div class="pass__text">パスワードで入室する</div>
                 <div class="pass__inputs" id="passInput">
-                    <input id="pass1" type="text" inputmode="numeric" pattern="\d*">
-                    <input id="pass2" type="text" inputmode="numeric" pattern="\d*">
-                    <input id="pass3" type="text" inputmode="numeric" pattern="\d*">
-                    <input id="pass4" type="text" inputmode="numeric" pattern="\d*">
+                    <input id="pass1" type="text" inputmode="numeric" maxlength='1' pattern="\d*">
+                    <input id="pass2" type="text" inputmode="numeric" maxlength='1' pattern="\d*">
+                    <input id="pass3" type="text" inputmode="numeric" maxlength='1' pattern="\d*">
+                    <input id="pass4" type="text" inputmode="numeric" maxlength='1' pattern="\d*">
                 </div>
                 <div class="link" id="joinWithPassword">
                     <div class="link__text">入室する</div>
