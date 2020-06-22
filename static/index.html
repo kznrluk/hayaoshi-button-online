@@ -69,6 +69,11 @@
         ev.target.value = ev.key;
         if (ev.target.nextElementSibling) {
             ev.target.nextElementSibling.focus();
+
+            // iPhone絶対許さない
+            if (/[ \(]iPhone/.test(navigator.userAgent)) {
+                setTimeout(() => ev.target.nextElementSibling.value = '', 0);
+            }
         }
 
         ev.preventDefault();
