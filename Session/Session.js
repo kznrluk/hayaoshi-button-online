@@ -1,18 +1,25 @@
 const Hayaoshi = require('../Hayaoshi/Hayaoshi');
 
 module.exports = class Session {
-    constructor(ioRoom) {
+    constructor(ioRoom, options) {
         this.hayaoshi = new Hayaoshi();
+        this.masterId = null;
+        this.isResetButtonMasterOnly = options.isResetButtonMasterOnly ?? false;
         this.room = ioRoom;
         this.room.on('connection', socket => this.connection(socket));
     }
 
     connection(socket) {
-        console.log(socket.id);
         socket.use(packet => {
             const apiName = packet[0];
+
+            if (apiName === 'editingName' && !this.masterId) {
+                // 一番最初にコネクション張った人はマスター
+                this.masterId = socket.id;
+            }
+
             if (apiName === 'joinSession') {
-                this.joinSession(socket, packet[1]);
+                this.joinSession(socket, packet[1], this.masterId === socket.id);
             }
 
             if (apiName === 'reset') {
@@ -23,11 +30,20 @@ module.exports = class Session {
                 this.pushButton(socket);
             }
         })
-        // ディスコネ時処理
+
+        socket.on('disconnect', () => {
+            if (socket.id === this.masterId) {
+                // ルームマスターが切断された
+                if (this.isResetButtonMasterOnly) {
+                    this.isResetButtonMasterOnly = false;
+                }
+            }
+            this.emitSessionStatus();
+        })
     }
 
-    joinSession(socket, name) {
-        this.hayaoshi.joinPlayers(socket.id, name);
+    joinSession(socket, name, isMaster) {
+        this.hayaoshi.joinPlayers(socket.id, name, isMaster);
         this.emitSessionStatus(socket);
     }
 
@@ -39,13 +55,18 @@ module.exports = class Session {
     }
 
     reset(socket) {
-        this.hayaoshi.resetPlayers();
-        this.emitReset();
+        if (!this.isResetButtonMasterOnly || this.hayaoshi.isPlayerIdMaster(socket.id)) {
+            this.hayaoshi.resetPlayers();
+            this.emitReset();
+        }
         this.emitSessionStatus(socket);
     }
 
     emitSessionStatus() {
-        this.room.emit('sessionStatus', this.hayaoshi.createSessionDetails());
+        this.room.emit('sessionStatus', {
+            isResetButtonMasterOnly: this.isResetButtonMasterOnly,
+            players: this.hayaoshi.createPlayerDetails()
+        });
     }
 
     emitButtonPushed(socket, playerDetail) {

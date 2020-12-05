@@ -259,6 +259,17 @@ body {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
+.btn-square-pop--off {
+    background: #c1c1c1;
+    box-shadow: none;
+    border-bottom: none;
+}
+
+.btn-square-pop--off:active {
+    border-bottom: none;
+    box-shadow: none;
+}
+
 .controllers {
     padding-top: 25px;
     padding-bottom: 25px;

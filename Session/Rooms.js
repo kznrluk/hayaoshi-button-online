@@ -7,9 +7,9 @@ module.exports = class Rooms {
         this.rooms = [];
     }
 
-    createNewRoom() {
+    createNewRoom(options = {}) {
         const id = uuid.v4();
-        this.rooms.push(new Session(this.io.of(`/session/${id}`)));
+        this.rooms.push(new Session(this.io.of(`/session/${id}`), options));
         return id;
     }
 }

@@ -78,6 +78,12 @@
 
         ev.preventDefault();
     });
+
+    document.getElementById('isResetButtonMasterOnly').addEventListener('click', (ev) => {
+        const aElm = document.getElementById('createNewRoomButton');
+        aElm.href = './createNewRoom'
+        aElm.href += ev.currentTarget.checked ? '?isResetButtonMasterOnly=true' : '';
+    })
     </script>
 </head>
 <body>
@@ -91,7 +97,18 @@
         <div class="content__body">
             <div class="link">
                 <div class="link__text">新しく部屋を作る</div>
-                <a href="./createNewRoom"></a>
+                <a id="createNewRoomButton" href="./createNewRoom?isResetButtonMasterOnly=true"></a>
+            </div>
+            <div class="options">
+                <div class="options__head">
+                    オプションを選ぶ
+                </div>
+                <div class="options__list">
+                    <div class="options__option">
+                        <input type="checkbox" id="isResetButtonMasterOnly">
+                        <label for="isResetButtonMasterOnly">部屋作成者のみリセット可能</label>
+                    </div>
+                </div>
             </div>
             <p class="content__separate">もしくは</p>
             <div class="pass">

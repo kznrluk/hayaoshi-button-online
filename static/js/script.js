@@ -1,9 +1,10 @@
 const store = {
     isMute: true,
     isButtonEnabled: false,
+    isActiveResetButton: true,
 }
 
-const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');;
+const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');
 
 const execCopy = (string) => {
     // 空div 生成
@@ -56,8 +57,12 @@ const enableButton = (bool) => {
         : pushButton.className.replace('pushable', 'disabled');
 }
 
-socket.on('sessionStatus', ({ players }) => {
+socket.on('sessionStatus', ({ players, isResetButtonMasterOnly }) => {
     const ownData = players.find(p => p.id === socket.id);
+    const isActiveResetButton = !isResetButtonMasterOnly || ownData.isMaster;
+    resetButton.className = isActiveResetButton ? 'btn-square-pop' : 'btn-square-pop btn-square-pop--off'
+    resetButton.title = isActiveResetButton ? '' : '部屋作成者のみリセットできます';
+    store.isActiveResetButton = isActiveResetButton;
     if (ownData) {
         document.getElementById('playGame').style.display = "flex";
         [joinButton, playerNameInput].forEach(e => e.disabled = true);
@@ -110,12 +115,13 @@ const tryPushButton = () => {
 }
 
 const resetButtonPushed = () => {
-    socket.emit('reset');
+    if (store.isActiveResetButton) {
+        socket.emit('reset');
+    }
 }
 
 pushButton.addEventListener('click', tryPushButton)
 resetButton.addEventListener('click', resetButtonPushed)
-
 
 const setShareModalPassword = (number) => {
     const passDiv = document.getElementById('showPasswords');
@@ -164,3 +170,13 @@ document.addEventListener('keydown', ({ code }) => {
     if (code === 'Space' || code === 'Enter') tryPushButton();
     if (code === 'Backspace' || code === 'Delete') resetButtonPushed();
 });
+
+document.addEventListener('onbeforeunload', () => {
+    socket.disconnect();
+})
+
+const init = () => {
+    socket.emit('editingName');
+}
+
+init();

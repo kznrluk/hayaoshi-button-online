@@ -1,13 +1,12 @@
 const Player = require('./Player');
 
-
 module.exports = class Hayaoshi {
     constructor() {
         this.players = [];
     }
 
-    joinPlayers(id, name) {
-        this.players.push(new Player(id, name));
+    joinPlayers(id, name, isMaster) {
+        this.players.push(new Player(id, name, isMaster));
     }
 
     buttonPushed(pushedPlayerId) {
@@ -33,13 +32,15 @@ module.exports = class Hayaoshi {
         return this.players.some(p => p.id === id);
     }
 
+    isPlayerIdMaster(id) {
+        return this.players.some(p => p.id === id && p.isMaster);
+    }
+
     resetPlayers() {
         this.players.forEach(p => p.reset());
     }
 
-    createSessionDetails() {
-        return {
-            players: this.players.map(p => p.createPlayerDetails()),
-        }
+    createPlayerDetails() {
+        return this.players.map(p => p.createPlayerDetails());
     }
 }

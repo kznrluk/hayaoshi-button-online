@@ -1,5 +1,6 @@
 module.exports = class Player {
-    constructor(id, name) {
+    constructor(id, name, isMaster) {
+        this.isMaster = isMaster;
         this.id = id;
         this.name = name;
         this.pushedRank = null;
@@ -18,6 +19,7 @@ module.exports = class Player {
             id: this.id,
             name: this.name,
             pushedRank: this.pushedRank,
+            isMaster: this.isMaster,
         }
     }
 }
