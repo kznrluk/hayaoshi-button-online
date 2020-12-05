@@ -190,6 +190,38 @@ body {
     padding-bottom: 30px;
 }
 
+.changelog {
+    width: 100%;
+    color: var(--main-text-color);
+    padding-bottom: 30px;
+}
+
+.changelog__list {
+    padding-left: 20px;
+}
+
+.changelog__content {
+    padding-top: 25px;
+}
+
+.changelog__content:first-child {
+    padding-top: 0;
+}
+
+.changelog__date {
+    font-weight: bold;
+}
+
+.changelog__description p {
+    padding-left: 20px;
+    margin: 5px 5px;
+}
+
+.changelog__description p:before {
+    content: '- '
+}
+
+
 .logos img {
     height: 30px;
 }
