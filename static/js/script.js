@@ -171,6 +171,13 @@ document.addEventListener('keydown', ({ code }) => {
     if (code === 'Backspace' || code === 'Delete') resetButtonPushed();
 });
 
+document.addEventListener('keyup', (event) => {
+    const code = event.code;
+    if (code === 'Space' || code === 'Enter') {
+        event.preventDefault(); // ほかのボタンが押されるのを防ぐ
+    }
+});
+
 document.addEventListener('onbeforeunload', () => {
     socket.disconnect();
 })
