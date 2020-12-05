@@ -6,17 +6,17 @@
 }
 
 body {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     margin: 0;
-    background: linear-gradient(-135deg, #F2B9A1, #EA6264);
     font-family: arial, sans-serif;
     letter-spacing: normal;
+    background: linear-gradient(-135deg, #F2B9A1, #EA6264) fixed;
 }
 
 .mainDiv {
     display: flex;
-    width: 100vw;
+    width: 100%;
     padding-top: 100px;
     justify-content: center;
 }
@@ -187,7 +187,7 @@ body {
 
 .howto {
     color: var(--main-text-color);
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .changelog {
