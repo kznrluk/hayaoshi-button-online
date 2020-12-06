@@ -97,6 +97,12 @@ socket.on('playSound', (soundUrl) => {
     if (!store.isMute) {
         new Audio(soundUrl).play();
     }
+    soundButtons.forEach(([element]) => {
+        element.classList.add('btn-square-pop--off');
+        setTimeout(() => {
+            element.classList.remove('btn-square-pop--off');
+        }, 3000);
+    })
 });
 
 socket.on('buttonPushed', (players) => {
