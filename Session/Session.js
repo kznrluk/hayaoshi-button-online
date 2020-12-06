@@ -5,7 +5,9 @@ module.exports = class Session {
         this.hayaoshi = new Hayaoshi();
         this.masterId = null;
         this.isResetButtonMasterOnly = options.isResetButtonMasterOnly ?? false;
+        this.isSoundButtonMasterOnly = options.isSoundButtonMasterOnly ?? false;
         this.room = ioRoom;
+        this.playSound = true;
         this.room.on('connection', socket => this.connection(socket));
     }
 
@@ -28,6 +30,10 @@ module.exports = class Session {
 
             if (apiName === 'pushButton') {
                 this.pushButton(socket);
+            }
+
+            if (apiName === 'playSound') {
+                this.emitPlaySound(socket, packet[1]);
             }
         })
 
@@ -75,5 +81,15 @@ module.exports = class Session {
 
     emitReset() {
         this.room.emit('reset');
+    }
+
+    emitPlaySound(socket, soundUrl) {
+        if (this.playSound && (!this.isSoundButtonMasterOnly || this.hayaoshi.isPlayerIdMaster(socket.id))) {
+            this.playSound = false;
+            this.room.emit('playSound', soundUrl);
+            setTimeout(() => {
+                this.playSound = true;
+            }, 3000);
+        }
     }
 }
