@@ -93,7 +93,7 @@ module.exports = class Session {
             this.room.emit('playSound', soundUrl);
             setTimeout(() => {
                 this.playSound = true;
-            }, 3000);
+            }, 1500);
         }
     }
 }

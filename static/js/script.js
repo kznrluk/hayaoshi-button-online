@@ -105,7 +105,7 @@ socket.on('playSound', (soundUrl) => {
                 store.isActiveSoundButton = true;
                 store.isCoolDownSoundButton = false;
                 element.classList.remove('btn-square-pop--off');
-            }, 3000);
+            }, 1500);
         }
     })
 });
