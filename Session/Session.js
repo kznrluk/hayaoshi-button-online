@@ -5,7 +5,9 @@ module.exports = class Session {
         this.hayaoshi = new Hayaoshi();
         this.masterId = null;
         this.isResetButtonMasterOnly = options.isResetButtonMasterOnly ?? false;
+        this.isSoundButtonMasterOnly = options.isSoundButtonMasterOnly ?? false;
         this.room = ioRoom;
+        this.playSound = true;
         this.room.on('connection', socket => this.connection(socket));
     }
 
@@ -29,6 +31,10 @@ module.exports = class Session {
             if (apiName === 'pushButton') {
                 this.pushButton(socket);
             }
+
+            if (apiName === 'playSound') {
+                this.emitPlaySound(socket, packet[1]);
+            }
         })
 
         socket.on('disconnect', () => {
@@ -36,6 +42,9 @@ module.exports = class Session {
                 // ルームマスターが切断された
                 if (this.isResetButtonMasterOnly) {
                     this.isResetButtonMasterOnly = false;
+                }
+                if (this.isSoundButtonMasterOnly) {
+                    this.isSoundButtonMasterOnly = false;
                 }
             }
             this.emitSessionStatus();
@@ -65,6 +74,7 @@ module.exports = class Session {
     emitSessionStatus() {
         this.room.emit('sessionStatus', {
             isResetButtonMasterOnly: this.isResetButtonMasterOnly,
+            isSoundButtonMasterOnly: this.isSoundButtonMasterOnly,
             players: this.hayaoshi.createPlayerDetails()
         });
     }
@@ -75,5 +85,15 @@ module.exports = class Session {
 
     emitReset() {
         this.room.emit('reset');
+    }
+
+    emitPlaySound(socket, soundUrl) {
+        if (this.playSound && (!this.isSoundButtonMasterOnly || this.hayaoshi.isPlayerIdMaster(socket.id))) {
+            this.playSound = false;
+            this.room.emit('playSound', soundUrl);
+            setTimeout(() => {
+                this.playSound = true;
+            }, 3000);
+        }
     }
 }
