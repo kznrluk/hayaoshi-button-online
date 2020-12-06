@@ -3,6 +3,7 @@ const store = {
     isButtonEnabled: false,
     isActiveResetButton: true,
     isActiveSoundButton: true,
+    isCoolDownSoundButton: false,
 }
 
 const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');
@@ -72,10 +73,9 @@ socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMas
     resetButton.classList.toggle('btn-square-pop--off', !isActiveResetButton);
     resetButton.title = isActiveResetButton ? '' : '部屋作成者のみリセットできます';
 
-    const isActiveSoundButton = !isSoundButtonMasterOnly || ownData.isMaster;
-    store.isActiveSoundButton = isActiveSoundButton;
+    store.isActiveSoundButton = !store.isCoolDownSoundButton && (!isSoundButtonMasterOnly || ownData.isMaster);
     soundButtons.forEach(([element]) => {
-        element.classList.toggle('btn-square-pop--off', !isActiveSoundButton);
+        element.classList.toggle('btn-square-pop--off', !store.isActiveSoundButton);
         element.title = isActiveResetButton ? '' : '部屋作成者のみ再生できます';
     })
 
@@ -98,10 +98,15 @@ socket.on('playSound', (soundUrl) => {
         new Audio(soundUrl).play();
     }
     soundButtons.forEach(([element]) => {
-        element.classList.add('btn-square-pop--off');
-        setTimeout(() => {
-            element.classList.remove('btn-square-pop--off');
-        }, 3000);
+        if (store.isActiveSoundButton) {
+            store.isCoolDownSoundButton = true;
+            element.classList.add('btn-square-pop--off');
+            setTimeout(() => {
+                store.isActiveSoundButton = true;
+                store.isCoolDownSoundButton = false;
+                element.classList.remove('btn-square-pop--off');
+            }, 3000);
+        }
     })
 });
 
