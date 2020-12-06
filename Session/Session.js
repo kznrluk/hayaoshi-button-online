@@ -43,6 +43,9 @@ module.exports = class Session {
                 if (this.isResetButtonMasterOnly) {
                     this.isResetButtonMasterOnly = false;
                 }
+                if (this.isSoundButtonMasterOnly) {
+                    this.isSoundButtonMasterOnly = false;
+                }
             }
             this.emitSessionStatus();
         })
@@ -71,6 +74,7 @@ module.exports = class Session {
     emitSessionStatus() {
         this.room.emit('sessionStatus', {
             isResetButtonMasterOnly: this.isResetButtonMasterOnly,
+            isSoundButtonMasterOnly: this.isSoundButtonMasterOnly,
             players: this.hayaoshi.createPlayerDetails()
         });
     }
