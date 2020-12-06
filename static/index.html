@@ -87,10 +87,18 @@
         ev.preventDefault();
     });
 
-    document.getElementById('isResetButtonMasterOnly').addEventListener('click', (ev) => {
-        const aElm = document.getElementById('createNewRoomButton');
-        aElm.href = './createNewRoom'
-        aElm.href += ev.currentTarget.checked ? '?isResetButtonMasterOnly=true' : '';
+    const aElm = document.getElementById('createNewRoomButton');
+    const queries = new URLSearchParams();
+    [
+        document.getElementById('isResetButtonMasterOnly'),
+        document.getElementById('isSoundButtonMasterOnly')
+    ].forEach((element) => {
+        element.addEventListener('click', (event) => {
+            const current = event.currentTarget;
+            current.checked ? queries.append(current.id, 'true') : queries.delete(current.id);
+
+            aElm.href = `./createNewRoom?${queries.toString()}`;
+        })
     })
     </script>
 </head>
@@ -115,6 +123,10 @@
                     <div class="options__option">
                         <input type="checkbox" id="isResetButtonMasterOnly">
                         <label for="isResetButtonMasterOnly">部屋作成者のみリセット可能</label>
+                    </div>
+                    <div class="options__option">
+                        <input type="checkbox" id="isSoundButtonMasterOnly">
+                        <label for="isSoundButtonMasterOnly">部屋作成者のみサウンド再生可能</label>
                     </div>
                 </div>
             </div>
@@ -144,6 +156,14 @@
             <div class="changelog">
                 <h4 class="changelog__head">更新履歴</h4>
                 <div class="changelog__list">
+                    <div class="changelog__content">
+                        <div class="changelog__date">
+                            2020-12-07
+                        </div>
+                        <div class="changelog__description">
+                            <p>効果音再生機能の追加</p>
+                        </div>
+                    </div>
                     <div class="changelog__content">
                         <div class="changelog__date">
                             2020-12-05

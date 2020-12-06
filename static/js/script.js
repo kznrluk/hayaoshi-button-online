@@ -2,6 +2,8 @@ const store = {
     isMute: true,
     isButtonEnabled: false,
     isActiveResetButton: true,
+    isActiveSoundButton: true,
+    isCoolDownSoundButton: false,
 }
 
 const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');
@@ -57,21 +59,60 @@ const enableButton = (bool) => {
         : pushButton.className.replace('pushable', 'disabled');
 }
 
-socket.on('sessionStatus', ({ players, isResetButtonMasterOnly }) => {
+const soundButtons = [
+    [document.getElementById('sound_pinpon'), '/sound/pinpon.mp3'],
+    [document.getElementById('sound_boboo'), '/sound/boboo.mp3']
+];
+
+socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMasterOnly }) => {
     const ownData = players.find(p => p.id === socket.id);
+
+    // TODO: 権限周り増える度しんどくなるのでリファクタしたい
     const isActiveResetButton = !isResetButtonMasterOnly || ownData.isMaster;
-    resetButton.className = isActiveResetButton ? 'btn-square-pop' : 'btn-square-pop btn-square-pop--off'
-    resetButton.title = isActiveResetButton ? '' : '部屋作成者のみリセットできます';
     store.isActiveResetButton = isActiveResetButton;
+    resetButton.classList.toggle('btn-square-pop--off', !isActiveResetButton);
+    resetButton.title = isActiveResetButton ? '' : '部屋作成者のみリセットできます';
+
+    store.isActiveSoundButton = !store.isCoolDownSoundButton && (!isSoundButtonMasterOnly || ownData.isMaster);
+    soundButtons.forEach(([element]) => {
+        element.classList.toggle('btn-square-pop--off', !store.isActiveSoundButton);
+        element.title = isActiveResetButton ? '' : '部屋作成者のみ再生できます';
+    })
+
     if (ownData) {
         document.getElementById('playGame').style.display = "flex";
         [joinButton, playerNameInput].forEach(e => e.disabled = true);
     }
 });
 
+soundButtons.forEach(([element, url]) => {
+    element.addEventListener('click', () => {
+        if (store.isActiveSoundButton) {
+            socket.emit('playSound', url);
+        }
+    })
+})
+
+socket.on('playSound', (soundUrl) => {
+    if (!store.isMute) {
+        new Audio(soundUrl).play();
+    }
+    soundButtons.forEach(([element]) => {
+        if (store.isActiveSoundButton) {
+            store.isCoolDownSoundButton = true;
+            element.classList.add('btn-square-pop--off');
+            setTimeout(() => {
+                store.isActiveSoundButton = true;
+                store.isCoolDownSoundButton = false;
+                element.classList.remove('btn-square-pop--off');
+            }, 3000);
+        }
+    })
+});
+
 socket.on('buttonPushed', (players) => {
     if (!store.isMute) {
-        new Audio('/sound/buzzer.wav').play();
+        new Audio('/sound/buzzer.mp3').play();
     }
 
     const texts = players

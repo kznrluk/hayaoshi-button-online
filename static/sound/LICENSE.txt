@@ -3,5 +3,7 @@ chime.wav
 https://maoudamashii.jokersounds.com/
 
 buzzer.mp3
+pinpon.mp3
+boboo.mp3
 音楽：OtoLogic
 https://otologic.jp/
