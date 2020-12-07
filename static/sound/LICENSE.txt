@@ -2,8 +2,8 @@ chime.wav
 音楽：魔王魂
 https://maoudamashii.jokersounds.com/
 
-buzzer.mp3
-pinpon.mp3
-boboo.mp3
+buzzer.wav
+pinpon.wav
+boboo.wav
 音楽：OtoLogic
 https://otologic.jp/
