@@ -60,8 +60,8 @@ const enableButton = (bool) => {
 }
 
 const soundButtons = [
-    [document.getElementById('sound_pinpon'), '/sound/pinpon.mp3'],
-    [document.getElementById('sound_boboo'), '/sound/boboo.mp3']
+    [document.getElementById('sound_pinpon'), '/sound/pinpon.wav'],
+    [document.getElementById('sound_boboo'), '/sound/boboo.wav']
 ];
 
 socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMasterOnly }) => {
@@ -112,7 +112,7 @@ socket.on('playSound', (soundUrl) => {
 
 socket.on('buttonPushed', (players) => {
     if (!store.isMute) {
-        new Audio('/sound/buzzer.mp3').play();
+        new Audio('/sound/buzzer.wav').play();
     }
 
     const texts = players
