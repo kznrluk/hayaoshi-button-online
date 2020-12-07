@@ -200,6 +200,10 @@ document.getElementById('volume_button').addEventListener('click', () => {
     const muteIconClass = 'fas fa-volume-mute';
     const unmuteIconClass = 'fas fa-volume-up';
     store.isMute = !store.isMute;
+    if (!store.isMute) {
+        // iOSはハンドラで鳴らさないと音が出ない
+        new Audio('/sound/pochi.wav').play();
+    }
     document.getElementById('volume_button_icon').className = store.isMute ? muteIconClass : unmuteIconClass;
 });
 
