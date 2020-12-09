@@ -1,6 +1,5 @@
 const store = {
     isMute: true,
-    audioInstance: null,
     isButtonEnabled: false,
     isActiveResetButton: true,
     isActiveSoundButton: true,
@@ -95,9 +94,8 @@ soundButtons.forEach(([element, url]) => {
 })
 
 socket.on('playSound', (soundUrl) => {
-    if (store.audioInstance) {
-        store.audioInstance.src = soundUrl;
-        store.audioInstance.play();
+    if (!store.isMute) {
+        new Audio(soundUrl).play();
     }
     soundButtons.forEach(([element]) => {
         if (store.isActiveSoundButton) {
@@ -113,9 +111,8 @@ socket.on('playSound', (soundUrl) => {
 });
 
 socket.on('buttonPushed', (players) => {
-    if (store.audioInstance) {
-        store.audioInstance.src = '/sound/buzzer.wav';
-        store.audioInstance.play();
+    if (!store.isMute) {
+        new Audio('/sound/buzzer.wav').play();
     }
 
     const texts = players
@@ -204,10 +201,8 @@ document.getElementById('volume_button').addEventListener('click', () => {
     const unmuteIconClass = 'fas fa-volume-up';
     store.isMute = !store.isMute;
     if (!store.isMute) {
-        store.audioInstance = new Audio('/sound/pochi.wav');
-        store.audioInstance.play();
-    } else {
-        store.audioInstance = null;
+        // iOSはハンドラで鳴らさないと音が出ない
+        new Audio('/sound/pochi.wav').play();
     }
     document.getElementById('volume_button_icon').className = store.isMute ? muteIconClass : unmuteIconClass;
 });
