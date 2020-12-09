@@ -97,6 +97,7 @@ soundButtons.forEach(([element, url]) => {
 socket.on('playSound', (soundUrl) => {
     if (store.audioInstance) {
         store.audioInstance.src = soundUrl;
+        store.audioInstance.load();
         store.audioInstance.play();
     }
     soundButtons.forEach(([element]) => {
@@ -115,6 +116,7 @@ socket.on('playSound', (soundUrl) => {
 socket.on('buttonPushed', (players) => {
     if (store.audioInstance) {
         store.audioInstance.src = '/sound/buzzer.wav';
+        store.audioInstance.load();
         store.audioInstance.play();
     }
 
