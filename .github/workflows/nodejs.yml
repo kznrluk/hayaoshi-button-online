@@ -1,36 +1,19 @@
-name: Node.js CI
+name: Deploy
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install and test
-      run: |
-        npm install
-        npm test
-      env:
-        CI: true
     - name: deploy
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SSH_USER: ${{ secrets.SSH_USER }}
-        SSH_ADDR: ${{ secrets.SSH_ADDR }}
-        SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
-        SSH_PORT: ${{ secrets.SSH_PORT }}
       run: |
         echo "$SECRET_KEY" > secret_key
         chmod 600 secret_key
-        ssh -oStrictHostKeyChecking=no ${SSH_USER}@${SSH_ADDR} -p $SSH_PORT -i secret_key "$SSH_COMMAND"
+        ssh -oStrictHostKeyChecking=no ${SSH_USER}@h.anyfrog.net -i secret_key "cd hayaoshi && git pull && sudo docker-compose restart"
