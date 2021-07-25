@@ -16,4 +16,4 @@ jobs:
       run: |
         echo "$SECRET_KEY" > secret_key
         chmod 600 secret_key
-        ssh -oStrictHostKeyChecking=no ${SSH_USER}@h.anyfrog.net -i secret_key "cd hayaoshi && git pull && sudo docker-compose restart"
+        ssh -oStrictHostKeyChecking=no ${SSH_USER}@h.anyfrog.net -i secret_key "cd hayaoshi && git pull && sudo docker-compose -f ./docker-compose.btn.yml restart"
