@@ -1,11 +1,7 @@
 version: '3'
 services:
   hayaoshi:
-    image: node:latest
-    command: "npm run btn"
-    working_dir: /hayaoshi
-    volumes:
-    - ./:/hayaoshi
+    build: .
     networks:
     - proxy
     restart: always
