@@ -2,7 +2,7 @@ version: '3'
 services:
   hayaoshi:
     image: node:latest
-    command: "bash \"npm install && node index.js\""
+    command: "npm run btn"
     working_dir: /hayaoshi
     volumes:
     - ../:/hayaoshi

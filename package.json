@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pm2-restart": "pm2 restart index.js",
+    "btn": "npm install && node index.js",
     "test": "node test.js"
   },
   "repository": {
