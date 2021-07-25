@@ -5,7 +5,7 @@ services:
     command: "npm run btn"
     working_dir: /hayaoshi
     volumes:
-    - ../:/hayaoshi
+    - ./:/hayaoshi
     networks:
     - proxy
     restart: always
