@@ -91,7 +91,8 @@
     const queries = new URLSearchParams();
     [
         document.getElementById('isResetButtonMasterOnly'),
-        document.getElementById('isSoundButtonMasterOnly')
+        document.getElementById('isSoundButtonMasterOnly'),
+        document.getElementById('isSimpleBackground'),
     ].forEach((element) => {
         element.addEventListener('click', (event) => {
             const current = event.currentTarget;
@@ -128,6 +129,10 @@
                         <input type="checkbox" id="isSoundButtonMasterOnly">
                         <label for="isSoundButtonMasterOnly">部屋作成者のみサウンド再生可能</label>
                     </div>
+                    <div class="options__option">
+                        <input type="checkbox" id="isSimpleBackground">
+                        <label for="isSimpleBackground">無地背景を使用する</label>
+                    </div>
                 </div>
             </div>
             <p class="content__separate">もしくは</p>
@@ -156,6 +161,15 @@
             <div class="changelog">
                 <h4 class="changelog__head">更新履歴</h4>
                 <div class="changelog__list">
+                    <div class="changelog__content">
+                        <div class="changelog__date">
+                            2021-09-05
+                        </div>
+                        <div class="changelog__description">
+                            <p>無地背景モードを追加 配信や行事等で画像を表示したくない場合に便利です。</p>
+                            <p>一部フォント・デザインを修正。ダークモード対応。</p>
+                        </div>
+                    </div>
                     <div class="changelog__content">
                         <div class="changelog__date">
                             2020-12-09

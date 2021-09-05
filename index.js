@@ -35,7 +35,8 @@ app.get('/getSessionIdFromPassword', (req, res) => {
 app.get('/createNewRoom', (req, res) => {
     const isResetButtonMasterOnly = req.query.isResetButtonMasterOnly === 'true';
     const isSoundButtonMasterOnly = req.query.isSoundButtonMasterOnly === 'true';
-    const roomId = rooms.createNewRoom({ isResetButtonMasterOnly, isSoundButtonMasterOnly });
+    const isSimpleBackground = req.query.isSimpleBackground === 'true';
+    const roomId = rooms.createNewRoom({ isResetButtonMasterOnly, isSoundButtonMasterOnly, isSimpleBackground });
     res.redirect(`/session.html?sessionId=${roomId}`);
 });
 

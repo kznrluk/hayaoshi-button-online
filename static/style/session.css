@@ -8,10 +8,22 @@
 }
 
 body {
-    background-image: url("https://source.unsplash.com/random");
+    font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: #f8f8f8;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #232527;
+    }
 }
 
 #main {
@@ -22,7 +34,6 @@ body {
 }
 
 .loginScreen__wrap {
-    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,10 +98,10 @@ body {
     justify-content: space-around;
     align-items: center;
     position: fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -222,9 +233,12 @@ body {
     font-size: 70px;
     font-weight: bold;
     overflow: hidden;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.29);
     border-bottom: solid 3px #bd6565;
     transition: .1s;
+}
+
+.btn-circle-3d--shadow {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.29);
 }
 
 .disabled {
@@ -233,7 +247,7 @@ body {
 }
 
 .pushable:active {
-    transform: translateY(6px);
+    transform: translateY(8px);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
     border-bottom: none;
 }
@@ -249,10 +263,13 @@ body {
     border: none;
     border-bottom: solid 2px #8c521d;
     border-radius: 4px;
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
     font-weight: bold;
     outline: none;
     appearance: none;
+}
+
+.btn-square-pop--shadow {
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 }
 
 .btn-square-pop:active {
@@ -308,7 +325,6 @@ body {
 }
 
 .controllers__button {
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
     border: 0 none;
     border-radius: 4px;
     padding: 10px;
@@ -322,6 +338,10 @@ body {
     border-bottom: solid 2px #769923;
     outline: none;
     appearance: none;
+}
+
+.controllers__button--shadow {
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 }
 
 .controllers__button:active {
@@ -342,6 +362,7 @@ body {
 
 .displayPushedPlayerName {
     padding: 0;
-    text-shadow: 0 0 8px #000000;
-    color: #FAFAFA;
+    color: #fafafa;
+    font-size: 20pt;
+    text-shadow: rgb(15, 15, 15) 3px 0px 0px, rgb(15, 15, 15) 2.83487px 0.981584px 0px, rgb(15, 15, 15) 2.35766px 1.85511px 0px, rgb(15, 15, 15) 1.62091px 2.52441px 0px, rgb(15, 15, 15) 0.705713px 2.91581px 0px, rgb(15, 15, 15) -0.287171px 2.98622px 0px, rgb(15, 15, 15) -1.24844px 2.72789px 0px, rgb(15, 15, 15) -2.07227px 2.16926px 0px, rgb(15, 15, 15) -2.66798px 1.37182px 0px, rgb(15, 15, 15) -2.96998px 0.42336px 0px, rgb(15, 15, 15) -2.94502px -0.571704px 0px, rgb(15, 15, 15) -2.59586px -1.50383px 0px, rgb(15, 15, 15) -1.96093px -2.27041px 0px, rgb(15, 15, 15) -1.11013px -2.78704px 0px, rgb(15, 15, 15) -0.137119px -2.99686px 0px, rgb(15, 15, 15) 0.850987px -2.87677px 0px, rgb(15, 15, 15) 1.74541px -2.43999px 0px, rgb(15, 15, 15) 2.44769px -1.73459px 0px, rgb(15, 15, 15) 2.88051px -0.838247px 0px;
 }

@@ -6,6 +6,7 @@ module.exports = class Session {
         this.masterId = null;
         this.isResetButtonMasterOnly = options.isResetButtonMasterOnly ?? false;
         this.isSoundButtonMasterOnly = options.isSoundButtonMasterOnly ?? false;
+        this.isSimpleBackground = options.isSimpleBackground ?? false;
         this.room = ioRoom;
         this.playSound = true;
         this.room.on('connection', socket => this.connection(socket));
@@ -75,6 +76,7 @@ module.exports = class Session {
         this.room.emit('sessionStatus', {
             isResetButtonMasterOnly: this.isResetButtonMasterOnly,
             isSoundButtonMasterOnly: this.isSoundButtonMasterOnly,
+            isSimpleBackground: this.isSimpleBackground,
             players: this.hayaoshi.createPlayerDetails()
         });
     }

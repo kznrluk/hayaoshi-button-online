@@ -5,6 +5,7 @@ const store = {
     isActiveResetButton: true,
     isActiveSoundButton: true,
     isCoolDownSoundButton: false,
+    isSimpleBackground: null,
 }
 
 const getSessionId = () => new URLSearchParams(location.href.split('?')[1]).get('sessionId');
@@ -65,7 +66,7 @@ const soundButtons = [
     [document.getElementById('sound_boboo'), '/sound/boboo.wav']
 ];
 
-socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMasterOnly }) => {
+socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMasterOnly, isSimpleBackground }) => {
     const ownData = players.find(p => p.id === socket.id);
 
     // TODO: 権限周り増える度しんどくなるのでリファクタしたい
@@ -79,6 +80,21 @@ socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMas
         element.classList.toggle('btn-square-pop--off', !store.isActiveSoundButton);
         element.title = isActiveResetButton ? '' : '部屋作成者のみ再生できます';
     })
+
+    if (store.isSimpleBackground == null) {
+        // 初回だけ記憶
+        store.isSimpleBackground = isSimpleBackground;
+        if (!store.isSimpleBackground) {
+            document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+        } else {
+            // クロマキー用に影を無効化する
+            document.querySelectorAll("[class*='--shadow']").forEach((e) => {
+                const cls = e.classList;
+                const target = [...cls].find(l => l.endsWith("--shadow"));
+                cls.remove(target);
+            })
+        }
+    }
 
     if (ownData) {
         document.getElementById('playGame').style.display = "flex";
@@ -128,7 +144,7 @@ socket.on('buttonPushed', (players) => {
             }
             const elm = document.createElement('p');
             elm.className = 'displayPushedPlayerName';
-            elm.textContent = `${player.name}さんが${player.pushedRank+1}番目にボタンを押しました`;
+            elm.textContent = `${player.pushedRank+1}. ${player.name}`;
             return elm;
         });
 
@@ -214,8 +230,24 @@ document.getElementById('volume_button').addEventListener('click', () => {
     document.getElementById('volume_button_icon').className = store.isMute ? muteIconClass : unmuteIconClass;
 });
 
+const simpleBackgroundList = [
+    document.body.style.backgroundColor, // Default
+    '#602dcf',
+    '#008000',
+];
+
+let backgroundIndex = 0;
 document.getElementById('image_button').addEventListener('click', () => {
-    document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+    if (store.isSimpleBackground) {
+        backgroundIndex += 1;
+        if (backgroundIndex > simpleBackgroundList.length) {
+            backgroundIndex = 0;
+        }
+
+        document.body.style.backgroundColor = simpleBackgroundList[backgroundIndex];
+    } else {
+        document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+    }
 });
 
 document.addEventListener('keydown', ({ code }) => {
