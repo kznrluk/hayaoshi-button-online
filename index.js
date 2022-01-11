@@ -4,6 +4,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Passwords = require('./Session/Passwords');
+const getStore = require('./Store/Store');
 
 app.use(express.static('static'));
 
@@ -40,8 +41,14 @@ app.get('/createNewRoom', (req, res) => {
     res.redirect(`/session.html?sessionId=${roomId}`);
 });
 
-app.get('/roomCount', (req, res) => {
-    res.send(String(rooms.rooms.length));
+const serverOpenDate = new Date().toString();
+app.get('/analytics', (req, res) => {
+    const store = getStore();
+    res.json({
+        roomCount: rooms.rooms.length,
+        openDate: serverOpenDate,
+        ...store.data()
+    });
 });
 
 http.listen(3000);

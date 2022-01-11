@@ -1,4 +1,5 @@
 const Hayaoshi = require('../Hayaoshi/Hayaoshi');
+const getStore = require('../Store/Store');
 
 module.exports = class Session {
     constructor(ioRoom, options) {
@@ -55,12 +56,16 @@ module.exports = class Session {
     joinSession(socket, name, isMaster) {
         this.hayaoshi.joinPlayers(socket.id, name, isMaster);
         this.emitSessionStatus(socket);
+        const store = getStore();
+        store.countUser();
     }
 
     pushButton(socket) {
         if (this.hayaoshi.isPlayerIdExist(socket.id)) {
             const pushedPlayerDetail = this.hayaoshi.buttonPushed(socket.id);
             this.emitButtonPushed(socket, pushedPlayerDetail);
+            const store = getStore();
+            store.countPush();
         }
     }
 
