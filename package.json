@@ -1,12 +1,9 @@
 {
   "name": "hayaoshi-button-online",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Webブラウザ上で早押しボタンが遊べるWebアプリ",
   "main": "index.js",
-  "scripts": {
-    "pm2-restart": "pm2 restart index.js",
-    "test": "node test.js"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kznrluk/hayaoshi-button-online.git"
@@ -18,11 +15,8 @@
   },
   "homepage": "https://github.com/kznrluk/hayaoshi-button-online#readme",
   "dependencies": {
-    "express": "^4.17.2",
-    "socket.io": "^4.4.1",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "morse-unit-test": "^0.1.4"
+    "express": "4.18.1",
+    "socket.io": "4.5.0",
+    "uuid": "8.3.2"
   }
 }
