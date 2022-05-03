@@ -51,5 +51,7 @@ app.get('/analytics', (req, res) => {
     });
 });
 
-http.listen(3000);
-console.log('Server listening....');
+const SERVER_PORT = 80;
+
+http.listen(SERVER_PORT);
+console.log('Server listening on ' + SERVER_PORT);
