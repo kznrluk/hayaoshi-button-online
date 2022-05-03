@@ -27,6 +27,7 @@ body {
 }
 
 .content {
+    max-width: 920px;
     background: #FAFAFA;
     border-radius: 7px;
 }
@@ -97,7 +98,6 @@ body {
 }
 
 .options {
-    max-width: 750px;
     padding-top: 10px;
     display: flex;
     flex-direction: column;
@@ -236,4 +236,20 @@ body {
     bottom: 0;
     width: 100%;
     height: 100px;
+}
+
+.qa__question::before {
+    font-size: 1.1rem;
+    content: "👋";
+    margin-right: 8px;
+}
+
+.qa__question {
+    font-size: 1.1rem;
+    font-weight: bolder;
+}
+
+.qa__answer {
+    text-indent: 1em;
+    line-height: 1.7em;
 }
