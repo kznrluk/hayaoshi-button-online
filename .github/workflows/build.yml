@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tagName:
-        required: false
+        required: true
         description: 'Tag name of this release'
 
 jobs:
