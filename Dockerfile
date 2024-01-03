@@ -1,8 +1,9 @@
-FROM node:18-slim
+FROM node:20-slim
 
 WORKDIR /hayaoshi
 COPY . /hayaoshi
 
+ENV PORT=80
 EXPOSE 80/tcp
 
 RUN npm install

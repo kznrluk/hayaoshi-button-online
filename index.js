@@ -51,7 +51,7 @@ app.get('/analytics', (req, res) => {
     });
 });
 
-const SERVER_PORT = 80;
+const SERVER_PORT = process.env.PORT ?? 80;
 
 http.listen(SERVER_PORT);
 console.log('Server listening on ' + SERVER_PORT);
