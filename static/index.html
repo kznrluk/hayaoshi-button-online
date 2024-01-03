@@ -79,20 +79,36 @@
         ev.preventDefault();
     });
 
-    const aElm = document.getElementById('createNewRoomButton');
-    const queries = new URLSearchParams();
+    const updateJoinLinkByOption = () => {
+        const options = [
+            document.getElementById('isResetButtonMasterOnly'),
+            document.getElementById('isSoundButtonMasterOnly'),
+            document.getElementById('isSimpleBackground'),
+        ]
+
+        const queries = new URLSearchParams();
+        options.forEach((element) => {
+            element.checked ? queries.append(element.id, 'true') : queries.delete(element.id);
+        })
+
+        const aElm = document.getElementById('createNewRoomButton');
+        aElm.href = `./createNewRoom?${queries.toString()}`;
+
+        console.log(aElm.href)
+    }
+
     [
         document.getElementById('isResetButtonMasterOnly'),
         document.getElementById('isSoundButtonMasterOnly'),
         document.getElementById('isSimpleBackground'),
     ].forEach((element) => {
-        element.addEventListener('click', (event) => {
-            const current = event.currentTarget;
-            current.checked ? queries.append(current.id, 'true') : queries.delete(current.id);
-
-            aElm.href = `./createNewRoom?${queries.toString()}`;
+        element.addEventListener('click', () => {
+            updateJoinLinkByOption();
         })
     })
+
+    // 戻るボタンで戻ってきたときにオプションを復元する
+    updateJoinLinkByOption();
     </script>
 </head>
 <body>
@@ -158,6 +174,16 @@
                 <div class="changelog__list">
                     <div class="changelog__content">
                         <div class="changelog__date">
+                            2024-01-03
+                        </div>
+                        <div class="changelog__description">
+                            <p>ブラウザの戻るを使用して部屋を作り直したときにオプションが反映されない不具合を修正</p>
+                            <p>よくある質問ページの修正と得点管理サービス「Tokuten」の紹介を追加</p>
+                            <p>セキュリティアップデートと軽微な修正</p>
+                        </div>
+                    </div>
+                    <div class="changelog__content">
+                        <div class="changelog__date">
                             2023-07-22
                         </div>
                         <div class="changelog__description">
@@ -177,51 +203,19 @@
                             2022-01-11
                         </div>
                         <div class="changelog__description">
-                            <p>セキュリティアップデートと軽微な修正。</p>
-                            <p>ページの読み込みが少し早くなりました。</p>
+                            <p>セキュリティアップデートと軽微な修正</p>
+                            <p>ページの読み込みが少し早くなりました</p>
                         </div>
                     </div>
                     <div class="changelog__content">
-                        <div class="changelog__date">
-                            2021-09-05
-                        </div>
-                        <div class="changelog__description">
-                            <p>無地背景モードを追加 配信や行事等で画像を表示したくない場合に便利です。</p>
-                            <p>一部フォント・デザインを修正。ダークモード対応。</p>
-                        </div>
-                    </div>
-                    <div class="changelog__content">
-                        <div class="changelog__date">
-                            2020-12-09
-                        </div>
-                        <div class="changelog__description">
-                            <p>iOSで効果音がならなかった不具合を修正</p>
-                        </div>
-                    </div>
-                    <div class="changelog__content">
-                        <div class="changelog__date">
-                            2020-12-07
-                        </div>
-                        <div class="changelog__description">
-                            <p>効果音再生機能の追加</p>
-                        </div>
-                    </div>
-                    <div class="changelog__content">
-                        <div class="changelog__date">
-                            2020-12-05
-                        </div>
-                        <div class="changelog__description">
-                            <p>部屋主のみがリセットできるオプションが指定できるようになりました。</p>
-                            <p>スペースキー等キーボードでの操作時の不具合を解消しました。</p>
-                            <p>一つの部屋に対し複数のパスワードを発行することができるようになりました。</p>
-                        </div>
+                        2021年以前の更新履歴はGitHubをご覧ください
                     </div>
                 </div>
             </div>
             <div class="logos">
                 <div class="logos__github">
                     <a href="https://github.com/kznrluk/hayaoshi-button-online">
-                        <img alt="github logo" src="//github.githubassets.com/images/modules/logos_page/GitHub-Logo.png">
+                        <img alt="github logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png">
                     </a>
                 </div>
             </div>
