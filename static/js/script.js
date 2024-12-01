@@ -85,7 +85,7 @@ socket.on('sessionStatus', ({ players, isResetButtonMasterOnly, isSoundButtonMas
         // 初回だけ記憶
         store.isSimpleBackground = isSimpleBackground;
         if (!store.isSimpleBackground) {
-            document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+            document.body.style.backgroundImage = `url("https://picsum.photos/820?q=${Math.random()}")`;
         } else {
             // クロマキー用に影を無効化する
             document.querySelectorAll("[class*='--shadow']").forEach((e) => {
@@ -246,7 +246,7 @@ document.getElementById('image_button').addEventListener('click', () => {
 
         document.body.style.backgroundColor = simpleBackgroundList[backgroundIndex];
     } else {
-        document.body.style.backgroundImage = `url("https://source.unsplash.com/random?q=${Math.random()}")`;
+        document.body.style.backgroundImage = `url("https://picsum.photos/820?q=${Math.random()}")`;
     }
 });
 
