@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/kznrluk/hayaoshi-button-online#readme",
   "dependencies": {
-    "express": "4.21.1",
+    "express": "4.21.2",
     "socket.io": "4.8.1",
     "uuid": "11.0.3"
   }
